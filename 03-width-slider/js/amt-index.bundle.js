@@ -22,6 +22,21 @@
     if (!Number.isFinite(raw) || raw < MIN_TICK || raw > MAX_TICK) throw new RangeError('슬라이더 이동 범위를 확인해 주세요.');
     return STOP_TICKS.reduce((best, stop) => Math.abs(raw - stop) < Math.abs(raw - best) ? stop : best, STOP_TICKS[0]);
   }
+  // Equal slider spacing is independent of the uneven coefficient intervals.
+  function positionToTick(position) {
+    const last = STOP_TICKS.length - 1;
+    if (!Number.isFinite(position) || position < 0 || position > last) throw new RangeError('슬라이더 위치가 범위를 벗어났습니다.');
+    if (position === last) return STOP_TICKS[last];
+    const index = Math.floor(position), ratio = position - index;
+    return STOP_TICKS[index] + ratio * (STOP_TICKS[index + 1] - STOP_TICKS[index]);
+  }
+  function tickToPosition(tick) {
+    if (!Number.isFinite(tick) || tick < MIN_TICK || tick > MAX_TICK) throw new RangeError('계수 눈금이 범위를 벗어났습니다.');
+    for (let index = 0; index < STOP_TICKS.length - 1; index++) {
+      if (tick <= STOP_TICKS[index + 1]) return index + (tick - STOP_TICKS[index]) / (STOP_TICKS[index + 1] - STOP_TICKS[index]);
+    }
+    return STOP_TICKS.length - 1;
+  }
   function coordinates(x, y) { return { x: PLOT.left + (x - PLOT.minX) * PLOT.unit, y: PLOT.top + (PLOT.maxY - y) * PLOT.unit }; }
   function pathForCoefficient(a) {
     if (!Number.isFinite(a) || a < MIN_TICK / 6 || a > MAX_TICK / 6) throw new RangeError('계수는 1/6부터 4 사이여야 합니다.');
@@ -47,7 +62,7 @@
     return { ...state, ticks, touched };
   }
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { MIN_TICK, MAX_TICK, DEFAULT_TICK, TARGET_TICKS, STOP_TICKS, nearestSnap, PLOT, tickToFraction, coefficient, coordinates, pathForCoefficient, pathForTick, initialState, gradeState, transition };
+    module.exports = { MIN_TICK, MAX_TICK, DEFAULT_TICK, TARGET_TICKS, STOP_TICKS, nearestSnap, positionToTick, tickToPosition, PLOT, tickToFraction, coefficient, coordinates, pathForCoefficient, pathForTick, initialState, gradeState, transition };
   }
   if (typeof document === 'undefined') return;
   const root = document.getElementById('amt-viewer-wraper');
@@ -114,7 +129,7 @@
     root.dataset.activeQuestion = String(state.active + 1);
     root.dataset.locked = String(state.locked);
     const tick = pending ? pending.raw : state.ticks[state.active];
-    slider.value = String(tick); slider.disabled = state.locked;
+    slider.value = String(tickToPosition(tick)); slider.disabled = state.locked;
     slider.setAttribute('aria-label', `${state.active + 1}번 그래프 슬라이더`);
     slider.setAttribute('aria-valuetext', '현재 위치');
     decrease.disabled = state.locked || tick === MIN_TICK; increase.disabled = state.locked || tick === MAX_TICK;
@@ -154,7 +169,8 @@
   }
   function readRawSlider() {
     const raw = String(slider.value).trim();
-    return raw === '' ? NaN : Number(raw);
+    const position = raw === '' ? NaN : Number(raw);
+    return Number.isFinite(position) && position >= 0 && position <= STOP_TICKS.length - 1 ? positionToTick(position) : NaN;
   }
   function validRaw(raw) { return Number.isFinite(raw) && raw >= MIN_TICK && raw <= MAX_TICK; }
   function commitPending() {
@@ -204,7 +220,7 @@
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !solution.hidden) { event.preventDefault(); setSolutionOpen(false, true); }
   });
-  slider.min = String(MIN_TICK); slider.max = String(MAX_TICK); slider.step = 'any';
+  slider.min = '0'; slider.max = String(STOP_TICKS.length - 1); slider.step = 'any';
   prepareGraph(); render(); setSolutionOpen(false);
   function fit() {
     const frame = get('activity-frame'); if (!frame) return;
