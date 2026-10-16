@@ -59,7 +59,6 @@
   const pageIndex = root.dataset.question === '2' ? 1 : 0;
   const description = get('width-desc');
   const slider = get('coefficient-slider'), decrease = get('decrease-a'), increase = get('increase-a');
-  const sliderStatus = get('slider-status');
   const resultElement = get('result-' + (pageIndex + 1));
   const gradeButton = root.querySelector('.btn-mark'), resetButton = root.querySelector('.btn-restart'), answerButton = root.querySelector('.btn-answer');
   const overall = get('overall-result'), solution = get('answer-popup-01');
@@ -119,8 +118,8 @@
     root.dataset.locked = String(state.locked);
     const tick = pending ? pending.raw : state.ticks[state.active];
     slider.value = String(tick); slider.disabled = state.locked;
-    slider.setAttribute('aria-label', `${state.active + 1}번 그래프의 모양 조절`);
-    slider.setAttribute('aria-valuetext', '그래프 조절 위치');
+    slider.setAttribute('aria-label', `${state.active + 1}번 그래프 슬라이더`);
+    slider.setAttribute('aria-valuetext', '현재 위치');
     decrease.disabled = state.locked || tick === MIN_TICK; increase.disabled = state.locked || tick === MAX_TICK;
     const visible = state.touched.map((touched, index) => index === pageIndex && (touched || Boolean(pending)));
     curves.forEach((curve, index) => {
@@ -169,14 +168,12 @@
   function applyStopAction(action) {
     if (state.locked) { pending = null; render(); return; }
     commitPending(); state = transition(state, action); render();
-    sliderStatus.textContent = '그래프를 조절했습니다.';
   }
   slider.addEventListener('input', () => {
     if (state.locked) { pending = null; render(); return; }
     const raw = readRawSlider();
     if (!validRaw(raw)) { pending = null; render(); return; }
     pending = { index: state.active, raw }; render();
-    sliderStatus.textContent = '손잡이를 놓으면 가까운 위치에 멈춥니다.';
   });
   slider.addEventListener('change', () => {
     if (state.locked) { pending = null; render(); return; }
@@ -184,7 +181,6 @@
     if (!validRaw(raw)) { render(); return; }
     if (!hadPending && raw === state.ticks[state.active]) { render(); return; }
     state = transition(state, { type: 'setTick', tick: nearestSnap(raw) }); render();
-    sliderStatus.textContent = '그래프를 조절했습니다.';
   });
   const keyActions = {
     ArrowLeft: { type: 'step', delta: -1 }, ArrowDown: { type: 'step', delta: -1 }, PageDown: { type: 'step', delta: -1 },
@@ -200,11 +196,11 @@
   gradeButton.addEventListener('click', () => {
     if (state.locked) return;
     commitPending(); state = transition(state, { type: 'grade' }); render();
-    sliderStatus.textContent = '채점한 그래프를 그대로 유지합니다.'; resetButton.focus();
+    resetButton.focus();
   });
   resetButton.addEventListener('click', () => {
     pending = null; state = transition(state, { type: 'reset' }); render(); setSolutionOpen(false);
-    sliderStatus.textContent = '슬라이더로 그래프를 그리세요.'; slider.focus();
+    slider.focus();
   });
   answerButton.addEventListener('click', () => { if (state.locked) setSolutionOpen(solution.hidden); });
   root.querySelectorAll('.btn-answer-close').forEach(button => button.addEventListener('click', () => setSolutionOpen(false, true)));
@@ -213,7 +209,6 @@
   });
   slider.min = String(MIN_TICK); slider.max = String(MAX_TICK); slider.step = 'any';
   prepareGraph(); render(); setSolutionOpen(false);
-  sliderStatus.textContent = '슬라이더로 그래프를 그리세요.';
   function fit() {
     const frame = get('activity-frame'); if (!frame) return;
     if (window.innerWidth < 600) { root.style.transform = 'none'; frame.style.width = '100%'; frame.style.height = 'auto'; return; }
