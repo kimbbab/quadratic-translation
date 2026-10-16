@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>이차함수 그래프의 폭 — 슬라이더 활동</title>
+  <link rel="stylesheet" href="../common-assets/amanta/da_mi_math2/public/common/css/amt-content.css">
+  <link rel="stylesheet" href="css/amt-index.bundle.css">
+  <link rel="stylesheet" href="css/amt-index.css">
+</head>
+<body>
+  <p id="loading-message" role="status">활동을 불러오는 중입니다.</p>
+  <div id="activity-frame">
+    <div id="amt-viewer-wraper" class="html-type width-page">
+      <main id="content" class="corner_unit color-type-2" aria-label="이차함수 그래프 그리기 문제 1">
+        <div id="quiz-main-01">
+          <!-- 본문 메인 스크롤 영역 -->
+          <div class="main-scroll scroll-cont js-scroll-cont">
+            <div class="scroll-inner" style="height: auto">
+              <!-- 본문 지시문 :: 문제 + 숫자 -->
+              <div class="title-quiz-num">
+                <div class="bullet"><span class="text">문제</span><span class="num">1</span></div>
+                <div class="text-cont"><div class="text-1">오른쪽 좌표평면 위에 나타낸 이차함수 <span class="math"><i>y</i> = <i>x</i><sup>2</sup></span>의 그래프를 이용하여 다음 이차함수의 그래프를 그리시오.</div></div>
+              </div>
+              <!-- 본문 콘텐츠 영역 - 문제 -->
+              <div class="content-area"><div class="content-box" style="height: auto">
+                <div class="question-list quiz-math type-box-1" role="group" aria-label="그릴 문항 선택">
+                  <button id="select-1" class="question-choice" type="button" aria-pressed="true" aria-controls="width-graph coefficient-slider">
+                    <span class="bracket-num-text"><span class="num">(<span class="count">1</span>)</span><span class="text math"><i>y</i> = 3<i>x</i><sup>2</sup></span></span>
+                    <span class="choice-label">선택</span>
+                  </button>
+                  <p id="result-1" class="question-result" aria-live="polite"></p>
+                  <button id="select-2" class="question-choice" type="button" aria-pressed="false" aria-controls="width-graph coefficient-slider">
+                    <span class="bracket-num-text"><span class="num">(<span class="count">2</span>)</span><span class="text math"><i>y</i> = <span class="fraction"><span>1</span><span>3</span></span><i>x</i><sup>2</sup></span></span>
+                    <span class="choice-label">선택</span>
+                  </button>
+                  <p id="result-2" class="question-result" aria-live="polite"></p>
+                  <p class="operation-hint">문항을 선택한 뒤 그래프 아래의<br>슬라이더를 움직여 보세요.</p>
+                </div>
+                <div class="graph-panel">
+                  <div class="graph-quad-cont type-1"><div class="inner">
+                    <svg id="width-graph" class="graph" viewBox="0 0 520 470" role="img" aria-labelledby="width-title width-desc">
+                      <title id="width-title">이차함수 그래프의 폭 비교</title>
+                      <desc id="width-desc">회색 기준 그래프는 y=x²입니다. 문항을 선택한 뒤 아래 슬라이더로 그래프의 폭을 조절하세요.</desc>
+                      <defs><clipPath id="width-plot-clip"><rect x="36" y="26" width="448" height="392"/></clipPath></defs>
+                      <g id="width-grid" aria-hidden="true"></g>
+                      <rect class="grid-frame" x="36" y="26" width="448" height="392"/>
+                      <g id="width-axes" aria-hidden="true"></g>
+                      <g clip-path="url(#width-plot-clip)" aria-hidden="true"><path id="base-curve" class="curve base-curve"/><path id="curve-1" class="curve curve-1" hidden/><path id="curve-2" class="curve curve-2" hidden/></g>
+                    </svg>
+                  </div></div>
+                  <div class="graph-legend" aria-label="그래프 색상"><span class="legend-base">기준 <span class="math"><i>y</i> = <i>x</i><sup>2</sup></span></span><span class="legend-one">(1)</span><span class="legend-two">(2)</span></div>
+                  <div class="coefficient-control">
+                    <div class="coefficient-heading"><label for="coefficient-slider">계수 <span class="math"><i>a</i></span></label><output id="coefficient-value" for="coefficient-slider" class="math">1</output><span class="control-direction">넓게 ↔ 좁게</span></div>
+                    <div class="slider-row"><button id="decrease-a" type="button" aria-label="계수 줄이기">◀</button><div class="range-track"><input id="coefficient-slider" type="range" min="1" max="24" step="1" value="6" aria-label="선택한 그래프의 계수 a" aria-describedby="slider-status"><div class="range-ticks" aria-hidden="true"><span style="left:4.347826%">⅓</span><span style="left:21.73913%">1</span><span style="left:47.826087%">2</span><span style="left:73.913043%">3</span><span style="left:100%">4</span></div></div><button id="increase-a" type="button" aria-label="계수 늘리기">▶</button></div>
+                    <p id="slider-status" role="status" aria-live="polite" aria-atomic="true">슬라이더를 움직이고 원하는 위치에서 놓으세요.</p>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+          </div>
+          <!-- 원본 문제 유형과 같은 하단 채점 버튼 -->
+          <div class="bottom-g-icon btns-bottom">
+            <button class="g-icon answer btn-answer" type="button" aria-controls="answer-popup-01" aria-expanded="false" hidden><span class="text">풀이 보기</span></button>
+            <p id="overall-result" role="status" aria-live="polite" aria-atomic="true"></p>
+            <button class="g-icon restart btn-restart" type="button"><span class="text">다시 하기</span></button>
+            <button class="g-icon mark btn-mark" type="button"><span class="text">채점하기</span></button>
+          </div>
+          <section id="answer-popup-01" class="g-answer-cont explain" role="region" aria-label="정답과 풀이" hidden>
+            <div class="inner"><div class="body">
+              <button class="btn-answer-close" type="button" aria-label="풀이 닫기">×</button>
+              <div class="answer-block"><div class="bullet">정답</div><div class="text-cont solution-grid">
+                <div>(1) <span class="math"><i>y</i> = 3<i>x</i><sup>2</sup></span><br>계수 <span class="math"><i>a</i> = 3</span></div>
+                <div>(2) <span class="math"><i>y</i> = <span class="fraction"><span>1</span><span>3</span></span><i>x</i><sup>2</sup></span><br>계수 <span class="math"><i>a</i> = <span class="fraction"><span>1</span><span>3</span></span></span></div>
+              </div></div>
+              <div class="explain-block"><div class="bullet">풀이</div><div class="text-cont">두 그래프의 꼭짓점은 모두 원점입니다.<br><span class="math"><i>y</i> = <i>x</i><sup>2</sup></span>의 그래프보다 (1)은 폭이 좁고, (2)는 폭이 넓습니다.</div></div>
+            </div></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <noscript><p>이 활동을 사용하려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+  <script src="js/amt-index.bundle.js"></script>
+</body>
+</html>
