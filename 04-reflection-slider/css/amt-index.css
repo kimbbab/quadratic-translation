@@ -13,7 +13,15 @@
 #amt-viewer-wraper .math{font-family:mjx-main-r,"Times New Roman",serif;white-space:nowrap}#amt-viewer-wraper .math i{font-family:mjx-main-i,"Times New Roman",serif;font-style:normal}#amt-viewer-wraper .math sup{font-size:.68em;vertical-align:super;line-height:0}
 #amt-viewer-wraper .fraction{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1;font-size:.75em;margin:0 .14em}#amt-viewer-wraper .fraction>span:first-child{border-bottom:1px solid currentColor;padding:0 .16em .1em}#amt-viewer-wraper .fraction>span:last-child{padding-top:.1em}
 #amt-viewer-wraper .question-list{position:absolute;left:64px;top:305px;width:485px}
-#amt-viewer-wraper .question-choice{display:flex;justify-content:space-between;align-items:center;width:100%;height:80px;padding:0 20px;border:2px solid #dbe1ed;border-radius:12px;background:#fff;text-align:left;color:#222;cursor:pointer}
+#amt-viewer-wraper .question-choice{display:flex;justify-content:space-between;align-items:center;width:100%;height:80px;padding:0 20px;border:2px solid #dbe1ed;border-radius:12px;background:#fff;text-align:left;color:#222}
+#amt-viewer-wraper .current-question{border-color:#00ace6;background:#f1faff}
+#amt-viewer-wraper [id=select-2].current-question{border-color:#8c6fca;background:#f8f5ff}
+#amt-viewer-wraper .question-pagination{display:flex;align-items:center;justify-content:space-between;margin:30px 0 0;gap:18px;font:17px/1.4 pre-m,sans-serif}
+#amt-viewer-wraper .question-pagination a,#amt-viewer-wraper .page-disabled{display:block;padding:11px 16px;border:1px solid #d3daeb;border-radius:8px;background:#f6f8ff;color:#4e629c;text-decoration:none}
+#amt-viewer-wraper .question-pagination a:hover{background:#e9eefc}
+#amt-viewer-wraper .question-pagination a:focus-visible{outline:3px solid #405db3;outline-offset:3px}
+#amt-viewer-wraper .question-pagination .page-disabled{border-color:#edf0f5;background:#fafbfc;color:#b3b9c5}
+#amt-viewer-wraper .page-count{color:#667185;white-space:nowrap}
 #amt-viewer-wraper .question-choice[aria-pressed=true]{border-color:#00ace6;background:#f1faff}
 #amt-viewer-wraper #select-2[aria-pressed=true]{border-color:#8c6fca;background:#f8f5ff}
 #amt-viewer-wraper .question-choice .bracket-num-text{display:flex;align-items:center;gap:16px;width:auto;font-size:30px;line-height:1.4}
@@ -36,19 +44,17 @@
 #amt-viewer-wraper .legend-base{color:#55565a}#amt-viewer-wraper .legend-one{color:#009cce}#amt-viewer-wraper .legend-two{color:#8063bc}
 #amt-viewer-wraper .coefficient-control{padding:1px 20px 0}
 #amt-viewer-wraper .coefficient-heading{display:flex;align-items:center;gap:10px;height:39px;font:18px/1.4 pre-m,sans-serif}
-#amt-viewer-wraper #coefficient-value{display:flex;align-items:center;justify-content:center;min-width:54px;height:37px;background:#f0f4ff;border-radius:7px;font-size:25px;color:#254680}
 #amt-viewer-wraper .control-direction{margin-left:auto;font-size:15px;color:#63738a}
 #amt-viewer-wraper .slider-row{display:flex;align-items:flex-start;gap:12px;margin-top:4px}
 #amt-viewer-wraper .slider-row>button{flex:none;width:34px;height:32px;border:1px solid #bdc8e7;border-radius:7px;background:#f5f7ff;color:#4563b6;font-size:17px;cursor:pointer}
-#amt-viewer-wraper .range-track{position:relative;flex:1;min-width:0;height:51px}
+#amt-viewer-wraper .range-track{position:relative;flex:1;min-width:0;height:43px}
 #amt-viewer-wraper #coefficient-slider{display:block;appearance:none;-webkit-appearance:none;width:100%;height:32px;margin:0;background:transparent;cursor:pointer;touch-action:none}
 #amt-viewer-wraper #coefficient-slider::-webkit-slider-runnable-track{height:7px;background:#dde6f7;border-radius:7px}
 #amt-viewer-wraper #coefficient-slider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:25px;height:25px;margin-top:-9px;border:3px solid #fff;border-radius:50%;background:#7087de;box-shadow:0 0 0 1px #647ad0}
 #amt-viewer-wraper #coefficient-slider::-moz-range-track{height:7px;background:#dde6f7;border-radius:7px}
 #amt-viewer-wraper #coefficient-slider::-moz-range-thumb{width:20px;height:20px;border:3px solid #fff;border-radius:50%;background:#7087de;box-shadow:0 0 0 1px #647ad0}
-#amt-viewer-wraper .range-ticks{position:absolute;top:32px;left:12.5px;right:12.5px;height:18px;pointer-events:none;font:15px/18px mjx-main-r,serif;color:#4f5f7a}
-#amt-viewer-wraper .range-ticks>span{position:absolute;transform:translateX(-50%)}
-#amt-viewer-wraper .range-ticks>span:before{content:"";position:absolute;width:1px;height:4px;background:#9caccc;left:50%;top:-5px}
+#amt-viewer-wraper .range-stops{position:absolute;top:33px;left:12.5px;right:12.5px;height:5px;pointer-events:none}
+#amt-viewer-wraper .range-stops>span{position:absolute;width:2px;height:4px;transform:translateX(-50%);background:#9caccc;border-radius:1px}
 #amt-viewer-wraper #slider-status{height:21px;margin:0;text-align:center;font:14px/21px pre-m,sans-serif;color:#677185}
 #amt-viewer-wraper button:disabled,#amt-viewer-wraper input:disabled{cursor:default;opacity:.65}
 #amt-viewer-wraper button:focus-visible,#amt-viewer-wraper input:focus-visible{outline:3px solid #405db3;outline-offset:3px}
@@ -63,9 +69,10 @@
 #amt-viewer-wraper .g-answer-cont .explain-block{margin-top:23px}
 #amt-viewer-wraper .g-answer-cont .bullet{position:static;flex:none;align-self:flex-start}
 #amt-viewer-wraper .g-answer-cont .text-cont{position:static;margin:0;padding:0;flex:1;width:auto;font:24px/1.7 pre-m,sans-serif}
-#amt-viewer-wraper .g-answer-cont .solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+#amt-viewer-wraper .g-answer-cont .solution-grid{display:grid;grid-template-columns:1fr;gap:28px}
 #amt-viewer-wraper .g-answer-cont .btn-answer-close{position:absolute;right:12px;top:3px;width:35px;height:35px;z-index:2;color:#4c6860;font:30px/35px sans-serif}
 @media(max-width:599px){
+ #amt-viewer-wraper .question-pagination{margin-top:18px;gap:8px;font-size:15px}#amt-viewer-wraper .question-pagination a,#amt-viewer-wraper .page-disabled{padding:10px}
  #activity-frame{width:100%!important;height:auto!important}#amt-viewer-wraper.html-type{width:100%;transform:none!important;overflow:visible}
  #amt-viewer-wraper #content{width:100%;height:auto;min-height:100vh;overflow:visible}
  #amt-viewer-wraper .main-scroll{position:relative;width:100%;height:auto;overflow:visible}#amt-viewer-wraper #content .main-scroll .scroll-inner{width:100%;height:auto!important;padding:0 0 12px}

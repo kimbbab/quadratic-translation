@@ -1,8 +1,9 @@
-/* Coefficient activity: fixed y=x^2, two independent student graphs. No SDK or network calls. */
+/* Coefficient activity: fixed y=x^2, one question per page. No SDK or network calls. */
 (function () {
   'use strict';
   const MIN_TICK = 1, MAX_TICK = 24, DEFAULT_TICK = 6;
   const TARGET_TICKS = Object.freeze([18, 2]);
+  const STOP_TICKS = Object.freeze([1, 2, 3, 6, 12, 18, 24]);
   const PLOT = Object.freeze({ left: 36, top: 26, width: 448, height: 392, right: 484, bottom: 418, unit: 28, minX: -8, maxX: 8, minY: -1, maxY: 13 });
   const isTick = tick => Number.isInteger(tick) && tick >= MIN_TICK && tick <= MAX_TICK;
   function requireTick(tick) {
@@ -16,6 +17,11 @@
     return { numerator, denominator, text: denominator === 1 ? String(numerator) : numerator + '/' + denominator };
   }
   function coefficient(tick) { return requireTick(tick) / 6; }
+  // The smaller stop wins an exact midpoint tie, including negative midpoints.
+  function nearestSnap(raw) {
+    if (!Number.isFinite(raw) || raw < MIN_TICK || raw > MAX_TICK) throw new RangeError('슬라이더 이동 범위를 확인해 주세요.');
+    return STOP_TICKS.reduce((best, stop) => Math.abs(raw - stop) < Math.abs(raw - best) ? stop : best, STOP_TICKS[0]);
+  }
   function coordinates(x, y) { return { x: PLOT.left + (x - PLOT.minX) * PLOT.unit, y: PLOT.top + (PLOT.maxY - y) * PLOT.unit }; }
   function pathForCoefficient(a) {
     if (!Number.isFinite(a) || a < MIN_TICK / 6 || a > MAX_TICK / 6) throw new RangeError('계수는 1/6부터 4 사이여야 합니다.');
@@ -25,24 +31,23 @@
     return `M${start.x} ${start.y} Q${control.x} ${control.y} ${end.x} ${end.y}`;
   }
   function pathForTick(tick) { return pathForCoefficient(coefficient(tick)); }
-  function initialState() { return { active: 0, ticks: [DEFAULT_TICK, DEFAULT_TICK], touched: [false, false], locked: false, results: null }; }
-  function gradeState(state) { return TARGET_TICKS.map((target, index) => state.touched[index] && state.ticks[index] === target); }
+  function initialState(index = 0) { return { active: index === 1 ? 1 : 0, ticks: [DEFAULT_TICK, DEFAULT_TICK], touched: [false, false], locked: false, result: null }; }
+  function gradeState(state) { return Boolean(state.touched[state.active] && state.ticks[state.active] === TARGET_TICKS[state.active]); }
   function transition(state, action) {
-    if (action.type === 'reset') return initialState();
+    if (action.type === 'reset') return initialState(state.active);
     if (state.locked) return state;
-    if (action.type === 'select') return action.index === 0 || action.index === 1 ? { ...state, active: action.index } : state;
-    if (action.type === 'grade') return { ...state, locked: true, results: gradeState(state) };
+    if (action.type === 'grade') return { ...state, locked: true, result: gradeState(state) };
     let nextTick;
     if (action.type === 'setTick') nextTick = action.tick;
-    else if (action.type === 'step' && (action.delta === -1 || action.delta === 1)) nextTick = state.ticks[state.active] + action.delta;
+    else if (action.type === 'step' && (action.delta === -1 || action.delta === 1)) nextTick = STOP_TICKS[STOP_TICKS.indexOf(state.ticks[state.active]) + action.delta];
     else return state;
-    if (!isTick(nextTick)) return state;
+    if (!STOP_TICKS.includes(nextTick)) return state;
     const ticks = state.ticks.slice(), touched = state.touched.slice();
     ticks[state.active] = nextTick; touched[state.active] = true;
     return { ...state, ticks, touched };
   }
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { MIN_TICK, MAX_TICK, DEFAULT_TICK, TARGET_TICKS, PLOT, tickToFraction, coefficient, coordinates, pathForCoefficient, pathForTick, initialState, gradeState, transition };
+    module.exports = { MIN_TICK, MAX_TICK, DEFAULT_TICK, TARGET_TICKS, STOP_TICKS, nearestSnap, PLOT, tickToFraction, coefficient, coordinates, pathForCoefficient, pathForTick, initialState, gradeState, transition };
   }
   if (typeof document === 'undefined') return;
   const root = document.getElementById('amt-viewer-wraper');
@@ -50,13 +55,15 @@
   const get = id => document.getElementById(id);
   const graph = get('width-graph'), grid = get('width-grid'), axes = get('width-axes');
   const baseCurve = get('base-curve'), curves = [get('curve-1'), get('curve-2')];
-  const description = get('width-desc'), selectButtons = [get('select-1'), get('select-2')];
+  const pageIndex = root.dataset.question === '2' ? 1 : 0;
+  const description = get('width-desc');
   const slider = get('coefficient-slider'), decrease = get('decrease-a'), increase = get('increase-a');
-  const output = get('coefficient-value'), sliderStatus = get('slider-status');
-  const results = [get('result-1'), get('result-2')];
+  const sliderStatus = get('slider-status');
+  const resultElement = get('result-' + (pageIndex + 1));
   const gradeButton = root.querySelector('.btn-mark'), resetButton = root.querySelector('.btn-restart'), answerButton = root.querySelector('.btn-answer');
   const overall = get('overall-result'), solution = get('answer-popup-01');
-  let state = initialState();
+  let state = initialState(pageIndex);
+  let pending = null;
 
   function svgNode(tag, attributes, text) {
     const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -95,6 +102,7 @@
     axes.appendChild(svgNode('text', { x: X(0) - 20, y: PLOT.top + 15, class: 'axis-label' }, 'y'));
     axes.appendChild(svgNode('text', { x: X(0) - 19, y: Y(0) + 21, class: 'axis-label' }, 'O'));
     [baseCurve, ...curves].forEach((curve, index) => {
+      if (!curve) return;
       curve.setAttribute('clip-path', 'url(#width-plot-clip)'); curve.setAttribute('fill', 'none');
       curve.setAttribute('stroke', ['#55565a', '#00ace6', '#8c6fca'][index]);
       curve.setAttribute('stroke-width', index === 0 ? '3.5' : '3');
@@ -106,81 +114,103 @@
   function render() {
     root.dataset.activeQuestion = String(state.active + 1);
     root.dataset.locked = String(state.locked);
-    const tick = state.ticks[state.active], fraction = tickToFraction(tick);
+    const tick = pending ? pending.raw : state.ticks[state.active];
     slider.value = String(tick); slider.disabled = state.locked;
-    slider.setAttribute('aria-label', `${state.active + 1}번 그래프의 계수 a`);
-    slider.setAttribute('aria-valuetext', fraction.denominator === 1 ? `a는 ${fraction.numerator}` : `a는 ${fraction.denominator}분의 ${fraction.numerator}`);
-    // Numerators and denominators come only from the 24 validated integer ticks.
-    output.innerHTML = fraction.denominator === 1 ? String(fraction.numerator) : `<span class="fraction"><span>${fraction.numerator}</span><span>${fraction.denominator}</span></span>`;
-    output.setAttribute('aria-label', 'a = ' + fraction.text);
+    slider.setAttribute('aria-label', `${state.active + 1}번 그래프의 모양 조절`);
+    slider.setAttribute('aria-valuetext', '그래프 조절 위치');
     decrease.disabled = state.locked || tick === MIN_TICK; increase.disabled = state.locked || tick === MAX_TICK;
-    selectButtons.forEach((button, index) => {
-      button.disabled = state.locked; button.setAttribute('aria-pressed', String(index === state.active));
-      button.classList.toggle('active', index === state.active);
-    });
+    const visible = state.touched.map((touched, index) => index === pageIndex && (touched || Boolean(pending)));
     curves.forEach((curve, index) => {
-      curve.setAttribute('d', pathForTick(state.ticks[index]));
-      curve.setAttribute('data-coefficient-tick', String(state.ticks[index]));
-      if (state.touched[index]) curve.removeAttribute('hidden');
+      if (!curve) return;
+      const preview = pending && pending.index === index;
+      const displayTick = preview ? pending.raw : state.ticks[index];
+      curve.setAttribute('d', pathForCoefficient(displayTick / 6));
+      curve.setAttribute('data-coefficient-tick', String(displayTick));
+      curve.setAttribute('data-committed-tick', String(state.ticks[index]));
+      curve.setAttribute('data-preview', String(Boolean(preview)));
+      if (visible[index]) curve.removeAttribute('hidden');
       else curve.setAttribute('hidden', '');
-      curve.style.display = state.touched[index] ? '' : 'none';
-      curve.setAttribute('aria-hidden', String(!state.touched[index]));
+      curve.style.display = visible[index] ? '' : 'none';
+      curve.setAttribute('aria-hidden', String(!visible[index]));
     });
-    description.textContent = '회색 기준 그래프는 y=x²입니다. ' + state.ticks.map((value, index) => state.touched[index]
-      ? `${index + 1}번 ${index === 0 ? '파란색' : '보라색'} 그래프는 y=(${tickToFraction(value).text})x²입니다.`
-      : `${index + 1}번 그래프는 아직 조작하지 않았습니다.`).join(' ');
-    results.forEach((element, index) => {
-      element.classList.remove('correct', 'incorrect');
-      if (state.results === null) { element.textContent = ''; delete element.dataset.result; }
+    description.textContent = '회색 기준 그래프는 고정되어 있습니다. ' + (visible[pageIndex]
+      ? `${pageIndex + 1}번 ${pageIndex === 0 ? '파란색' : '보라색'} 그래프가 표시되어 있습니다.`
+      : `${pageIndex + 1}번 그래프는 아직 조작하지 않았습니다.`);
+    if (resultElement) {
+      resultElement.classList.remove('correct', 'incorrect');
+      if (state.result === null) { resultElement.textContent = ''; delete resultElement.dataset.result; }
       else {
-        const correct = state.results[index];
-        element.textContent = correct ? '정답입니다.' : '오답입니다.';
-        element.classList.add(correct ? 'correct' : 'incorrect'); element.dataset.result = correct ? 'correct' : 'incorrect';
+        resultElement.textContent = state.result ? '정답입니다.' : '오답입니다.';
+        resultElement.classList.add(state.result ? 'correct' : 'incorrect');
+        resultElement.dataset.result = state.result ? 'correct' : 'incorrect';
       }
-    });
-    gradeButton.hidden = state.locked; resetButton.hidden = false; answerButton.hidden = !state.locked;
-    if (state.results === null) overall.textContent = '';
-    else {
-      const count = state.results.filter(Boolean).length;
-      overall.textContent = count === 2 ? '두 문제 모두 정답입니다.' : `정답 ${count} / 2 · 각 문항의 결과를 확인하세요.`;
     }
+    gradeButton.hidden = state.locked; resetButton.hidden = false; answerButton.hidden = !state.locked;
+    overall.textContent = state.result === null ? '' : state.result ? '정답입니다.' : '오답입니다. 다시 하기를 눌러 도전해 보세요.';
   }
   function setSolutionOpen(open, restoreFocus = false) {
     solution.hidden = !open; answerButton.setAttribute('aria-expanded', String(open));
     const label = answerButton.querySelector('.text'); if (label) label.textContent = open ? '풀이 닫기' : '풀이 보기';
     if (restoreFocus) answerButton.focus();
   }
-  function applyTick(action) {
-    if (state.locked) return;
-    const next = transition(state, action);
-    if (next === state) { render(); return; }
-    state = next; render(); sliderStatus.textContent = `${state.active + 1}번 그래프의 계수를 바꾸었습니다.`;
+  function readRawSlider() {
+    const raw = String(slider.value).trim();
+    return raw === '' ? NaN : Number(raw);
   }
-  selectButtons.forEach((button, index) => button.addEventListener('click', () => {
-    if (state.locked) return;
-    state = transition(state, { type: 'select', index }); render();
-    sliderStatus.textContent = `${index + 1}번 그래프를 조절하세요.`;
-  }));
-  slider.addEventListener('input', () => applyTick({ type: 'setTick', tick: Number(slider.value) }));
-  decrease.addEventListener('click', () => applyTick({ type: 'step', delta: -1 }));
-  increase.addEventListener('click', () => applyTick({ type: 'step', delta: 1 }));
+  function validRaw(raw) { return Number.isFinite(raw) && raw >= MIN_TICK && raw <= MAX_TICK; }
+  function commitPending() {
+    if (!pending) return;
+    const preview = pending; pending = null;
+    if (!state.locked && preview.index === state.active) state = transition(state, { type: 'setTick', tick: nearestSnap(preview.raw) });
+  }
+  function applyStopAction(action) {
+    if (state.locked) { pending = null; render(); return; }
+    commitPending(); state = transition(state, action); render();
+    sliderStatus.textContent = '그래프를 조절했습니다.';
+  }
+  slider.addEventListener('input', () => {
+    if (state.locked) { pending = null; render(); return; }
+    const raw = readRawSlider();
+    if (!validRaw(raw)) { pending = null; render(); return; }
+    pending = { index: state.active, raw }; render();
+    sliderStatus.textContent = '손잡이를 놓으면 가까운 위치에 멈춥니다.';
+  });
+  slider.addEventListener('change', () => {
+    if (state.locked) { pending = null; render(); return; }
+    const raw = readRawSlider(), hadPending = pending !== null; pending = null;
+    if (!validRaw(raw)) { render(); return; }
+    if (!hadPending && raw === state.ticks[state.active]) { render(); return; }
+    state = transition(state, { type: 'setTick', tick: nearestSnap(raw) }); render();
+    sliderStatus.textContent = '그래프를 조절했습니다.';
+  });
+  const keyActions = {
+    ArrowLeft: { type: 'step', delta: -1 }, ArrowDown: { type: 'step', delta: -1 }, PageDown: { type: 'step', delta: -1 },
+    ArrowRight: { type: 'step', delta: 1 }, ArrowUp: { type: 'step', delta: 1 }, PageUp: { type: 'step', delta: 1 },
+    Home: { type: 'setTick', tick: MIN_TICK }, End: { type: 'setTick', tick: MAX_TICK }
+  };
+  slider.addEventListener('keydown', event => {
+    if (!Object.prototype.hasOwnProperty.call(keyActions, event.key)) return;
+    event.preventDefault(); applyStopAction(keyActions[event.key]);
+  });
+  decrease.addEventListener('click', () => applyStopAction({ type: 'step', delta: -1 }));
+  increase.addEventListener('click', () => applyStopAction({ type: 'step', delta: 1 }));
   gradeButton.addEventListener('click', () => {
     if (state.locked) return;
-    state = transition(state, { type: 'grade' }); render();
+    commitPending(); state = transition(state, { type: 'grade' }); render();
     sliderStatus.textContent = '채점한 그래프를 그대로 유지합니다.'; resetButton.focus();
   });
   resetButton.addEventListener('click', () => {
-    state = transition(state, { type: 'reset' }); render(); setSolutionOpen(false);
-    sliderStatus.textContent = '문항을 선택하고 슬라이더로 그래프를 그리세요.'; selectButtons[0].focus();
+    pending = null; state = transition(state, { type: 'reset' }); render(); setSolutionOpen(false);
+    sliderStatus.textContent = '슬라이더로 그래프를 그리세요.'; slider.focus();
   });
   answerButton.addEventListener('click', () => { if (state.locked) setSolutionOpen(solution.hidden); });
   root.querySelectorAll('.btn-answer-close').forEach(button => button.addEventListener('click', () => setSolutionOpen(false, true)));
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !solution.hidden) { event.preventDefault(); setSolutionOpen(false, true); }
   });
-  slider.min = String(MIN_TICK); slider.max = String(MAX_TICK); slider.step = '1';
+  slider.min = String(MIN_TICK); slider.max = String(MAX_TICK); slider.step = 'any';
   prepareGraph(); render(); setSolutionOpen(false);
-  sliderStatus.textContent = '문항을 선택하고 슬라이더로 그래프를 그리세요.';
+  sliderStatus.textContent = '슬라이더로 그래프를 그리세요.';
   function fit() {
     const frame = get('activity-frame'); if (!frame) return;
     if (window.innerWidth < 600) { root.style.transform = 'none'; frame.style.width = '100%'; frame.style.height = 'auto'; return; }

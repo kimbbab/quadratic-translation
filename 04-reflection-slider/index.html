@@ -1,86 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>이차함수 그래프의 대칭 — 슬라이더 활동</title>
-  <link rel="stylesheet" href="../common-assets/amanta/da_mi_math2/public/common/css/amt-content.css">
-  <link rel="stylesheet" href="css/amt-index.bundle.css">
-  <link rel="stylesheet" href="css/amt-index.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>이차함수 그래프의 대칭 — 문항 (1)</title>
+<link href="../common-assets/amanta/da_mi_math2/public/common/css/amt-content.css" rel="stylesheet"/>
+<link href="css/amt-index.bundle.css" rel="stylesheet"/>
+<link href="css/amt-index.css" rel="stylesheet"/>
 </head>
 <body>
-  <p id="loading-message" role="status">활동을 불러오는 중입니다.</p>
-  <div id="activity-frame">
-    <div id="amt-viewer-wraper" class="html-type reflection-page">
-      <main id="content" class="corner_unit color-type-2" aria-label="이차함수 그래프 그리기 문제 2">
-        <div id="quiz-main-01">
-          <!-- 본문 메인 스크롤 영역 -->
-          <div class="main-scroll scroll-cont js-scroll-cont">
-            <div class="scroll-inner" style="height: auto">
-              <!-- 본문 지시문 :: 문제 + 숫자 -->
-              <div class="title-quiz-num">
-                <div class="bullet"><span class="text">문제</span><span class="num">2</span></div>
-                <div class="text-cont"><div class="text-1">오른쪽 좌표평면 위에 나타낸 이차함수 <span class="math"><i>y</i> = 2<i>x</i><sup>2</sup></span>, <span class="math"><i>y</i> = <span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span>의 그래프를 이용하여 다음 이차함수의 그래프를 그리시오.</div></div>
-              </div>
-              <!-- 본문 콘텐츠 영역 - 문제 -->
-              <div class="content-area"><div class="content-box" style="height: auto">
-                <div class="question-list quiz-math type-box-1" role="group" aria-label="그릴 문항 선택">
-                  <button id="select-1" class="question-choice" type="button" aria-pressed="true" aria-controls="width-graph coefficient-slider">
-                    <span class="bracket-num-text"><span class="num">(<span class="count">1</span>)</span><span class="text math"><i>y</i> = −2<i>x</i><sup>2</sup></span></span>
-                    <span class="choice-label">선택</span>
-                  </button>
-                  <p id="result-1" class="question-result" aria-live="polite"></p>
-                  <button id="select-2" class="question-choice" type="button" aria-pressed="false" aria-controls="width-graph coefficient-slider">
-                    <span class="bracket-num-text"><span class="num">(<span class="count">2</span>)</span><span class="text math"><i>y</i> = −<span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span></span>
-                    <span class="choice-label">선택</span>
-                  </button>
-                  <p id="result-2" class="question-result" aria-live="polite"></p>
-                  <p class="operation-hint">문항을 선택한 뒤 그래프 아래의<br>슬라이더를 움직여 보세요.</p>
-                </div>
-                <div class="graph-panel">
-                  <div class="graph-quad-cont type-1"><div class="inner">
-                    <svg id="width-graph" class="graph" viewBox="0 0 520 470" role="img" aria-labelledby="width-title width-desc">
-                      <title id="width-title">이차함수 그래프의 대칭 비교</title>
-                      <desc id="width-desc">회색 기준 그래프는 y=2x²과 y=(1/2)x²입니다. 문항을 선택한 뒤 아래 슬라이더로 그래프를 조절하세요.</desc>
-                      <defs><clipPath id="width-plot-clip"><rect x="150" y="26" width="220" height="396"/></clipPath></defs>
-                      <g id="width-grid" aria-hidden="true"></g>
-                      <rect class="grid-frame" x="150" y="26" width="220" height="396"/>
-                      <g clip-path="url(#width-plot-clip)" aria-hidden="true"><path id="base-curve-1" class="curve base-curve"/><path id="base-curve-2" class="curve base-curve"/><path id="curve-1" class="curve curve-1" hidden/><path id="curve-2" class="curve curve-2" hidden/></g>
-                      <g id="width-axes" aria-hidden="true"></g>
-                    </svg>
-                  </div></div>
-                  <div class="graph-legend" aria-label="그래프 색상"><span class="legend-base"><span class="math"><i>y</i> = 2<i>x</i><sup>2</sup></span></span><span class="legend-base"><span class="math"><i>y</i> = <span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span></span><span class="legend-one">(1)</span><span class="legend-two">(2)</span></div>
-                  <div class="coefficient-control">
-                    <div class="coefficient-heading"><label for="coefficient-slider">계수 <span class="math"><i>a</i></span></label><output id="coefficient-value" for="coefficient-slider" class="math">2</output><span class="control-direction">음수 ← 0 → 양수</span></div>
-                    <div class="slider-row"><button id="decrease-a" type="button" aria-label="계수 줄이기">◀</button><div class="range-track"><input id="coefficient-slider" type="range" min="-24" max="24" step="1" value="12" aria-label="선택한 그래프의 계수 a" aria-describedby="slider-status"><div class="range-ticks" aria-hidden="true"><span style="left:0%">−4</span><span style="left:25%">−2</span><span style="left:43.75%">−½</span><span style="left:50%">0</span><span style="left:75%">2</span><span style="left:100%">4</span></div></div><button id="increase-a" type="button" aria-label="계수 늘리기">▶</button></div>
-                    <p id="slider-status" role="status" aria-live="polite" aria-atomic="true">슬라이더를 움직이고 원하는 위치에서 놓으세요.</p>
-                  </div>
-                </div>
-              </div></div>
-            </div>
-          </div>
-          <!-- 원본 문제 유형과 같은 하단 채점 버튼 -->
-          <div class="bottom-g-icon btns-bottom">
-            <button class="g-icon answer btn-answer" type="button" aria-controls="answer-popup-01" aria-expanded="false" hidden><span class="text">풀이 보기</span></button>
-            <p id="overall-result" role="status" aria-live="polite" aria-atomic="true"></p>
-            <button class="g-icon restart btn-restart" type="button"><span class="text">다시 하기</span></button>
-            <button class="g-icon mark btn-mark" type="button"><span class="text">채점하기</span></button>
-          </div>
-          <section id="answer-popup-01" class="g-answer-cont explain" role="region" aria-label="정답과 풀이" hidden>
-            <div class="inner"><div class="body">
-              <button class="btn-answer-close" type="button" aria-label="풀이 닫기">×</button>
-              <div class="answer-block"><div class="bullet">정답</div><div class="text-cont solution-grid">
-                <div>(1) <span class="math"><i>y</i> = −2<i>x</i><sup>2</sup></span><br>계수 <span class="math"><i>a</i> = −2</span></div>
-                <div>(2) <span class="math"><i>y</i> = −<span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span><br>계수 <span class="math"><i>a</i> = −<span class="fraction"><span>1</span><span>2</span></span></span></div>
-              </div></div>
-              <div class="explain-block"><div class="bullet">풀이</div><div class="text-cont">각각의 기준 그래프를 <span class="math"><i>x</i></span>축에 대하여 대칭이동한 그래프입니다.<br>꼭짓점은 모두 원점이고, 폭은 각각의 기준 그래프와 같습니다.</div></div>
-            </div></div>
-          </section>
-        </div>
-      </main>
-    </div>
-  </div>
-  <noscript><p>이 활동을 사용하려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
-  <script src="js/amt-index.bundle.js"></script>
+<p id="loading-message" role="status">활동을 불러오는 중입니다.</p>
+<div id="activity-frame">
+<div class="html-type reflection-page" data-question="1" id="amt-viewer-wraper">
+<main aria-label="이차함수 그래프 그리기 문제 2의 (1)" class="corner_unit color-type-2" id="content">
+<div id="quiz-main-01">
+<!-- 본문 메인 스크롤 영역 -->
+<div class="main-scroll scroll-cont js-scroll-cont">
+<div class="scroll-inner" style="height: auto">
+<!-- 본문 지시문 :: 문제 + 숫자 -->
+<div class="title-quiz-num">
+<div class="bullet"><span class="text">문제</span><span class="num">2</span></div>
+<div class="text-cont"><div class="text-1">오른쪽 좌표평면 위에 나타낸 이차함수 <span class="math"><i>y</i> = 2<i>x</i><sup>2</sup></span>, <span class="math"><i>y</i> = <span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span>의 그래프를 이용하여 다음 이차함수의 그래프를 그리시오.</div></div>
+</div>
+<!-- 본문 콘텐츠 영역 - 문제 -->
+<div class="content-area"><div class="content-box" style="height: auto">
+<div aria-label="그릴 그래프" class="question-list quiz-math type-box-1" role="group">
+<div class="question-choice current-question" id="select-1">
+<span class="bracket-num-text"><span class="num">(<span class="count">1</span>)</span><span class="text math"><i>y</i> = −2<i>x</i><sup>2</sup></span></span>
+
+</div>
+<p aria-live="polite" class="question-result" id="result-1"></p>
+
+
+<p class="operation-hint">그래프 아래의 슬라이더를 움직여<br/>주어진 이차함수의 그래프를 그려 보세요.</p>
+<nav aria-label="문항 페이지" class="question-pagination"><span aria-disabled="true" class="page-disabled">← 이전 문항</span><span class="page-count">1 / 2</span><a href="question-2.html" rel="next">다음 문항 →</a></nav></div>
+<div class="graph-panel">
+<div class="graph-quad-cont type-1"><div class="inner">
+<svg aria-labelledby="width-title width-desc" class="graph" id="width-graph" role="img" viewbox="0 0 520 470">
+<title id="width-title">이차함수 그래프의 대칭 비교</title>
+<desc id="width-desc">회색 기준 그래프는 고정되어 있습니다. 아래 슬라이더로 그래프를 조절하세요.</desc>
+<defs><clippath id="width-plot-clip"><rect height="396" width="220" x="150" y="26"></rect></clippath></defs>
+<g aria-hidden="true" id="width-grid"></g>
+<rect class="grid-frame" height="396" width="220" x="150" y="26"></rect>
+<g aria-hidden="true" clip-path="url(#width-plot-clip)"><path class="curve base-curve" id="base-curve-1"></path><path class="curve base-curve" id="base-curve-2"></path><path class="curve curve-1" hidden="" id="curve-1"></path></g>
+<g aria-hidden="true" id="width-axes"></g>
+</svg>
+</div></div>
+<div aria-label="그래프 색상" class="graph-legend"><span class="legend-base"><span class="math"><i>y</i> = 2<i>x</i><sup>2</sup></span></span><span class="legend-base"><span class="math"><i>y</i> = <span class="fraction"><span>1</span><span>2</span></span><i>x</i><sup>2</sup></span></span><span class="legend-one">(1)</span></div>
+<div class="coefficient-control">
+<div class="coefficient-heading"><label for="coefficient-slider">그래프 조절</label><span class="control-direction">아래로 열린 모양 ↔ 위로 열린 모양</span></div>
+<div class="slider-row"><button aria-label="이전 위치로 이동" id="decrease-a" type="button">◀</button><div class="range-track"><input aria-describedby="slider-status" aria-label="1번 그래프의 모양 조절" id="coefficient-slider" max="24" min="-24" step="any" type="range" value="12"/><div aria-hidden="true" class="range-stops"><span style="left:0%"></span><span style="left:12.5%"></span><span style="left:25%"></span><span style="left:37.5%"></span><span style="left:43.75%"></span><span style="left:45.833333%"></span><span style="left:47.916667%"></span><span style="left:50%"></span><span style="left:52.083333%"></span><span style="left:54.166667%"></span><span style="left:56.25%"></span><span style="left:62.5%"></span><span style="left:75%"></span><span style="left:87.5%"></span><span style="left:100%"></span></div></div><button aria-label="다음 위치로 이동" id="increase-a" type="button">▶</button></div>
+<p aria-atomic="true" aria-live="polite" id="slider-status" role="status">손잡이를 놓으면 가까운 위치에 멈춥니다.</p>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<!-- 원본 문제 유형과 같은 하단 채점 버튼 -->
+<div class="bottom-g-icon btns-bottom">
+<button aria-controls="answer-popup-01" aria-expanded="false" class="g-icon answer btn-answer" hidden="" type="button"><span class="text">풀이 보기</span></button>
+<p aria-atomic="true" aria-live="polite" id="overall-result" role="status"></p>
+<button class="g-icon restart btn-restart" type="button"><span class="text">다시 하기</span></button>
+<button class="g-icon mark btn-mark" type="button"><span class="text">채점하기</span></button>
+</div>
+<section aria-label="정답과 풀이" class="g-answer-cont explain" hidden="" id="answer-popup-01" role="region">
+<div class="inner"><div class="body">
+<button aria-label="풀이 닫기" class="btn-answer-close" type="button">×</button>
+<div class="answer-block"><div class="bullet">정답</div><div class="text-cont solution-grid">
+<div>(1) <span class="math"><i>y</i> = −2<i>x</i><sup>2</sup></span><br/>계수 <span class="math"><i>a</i> = −2</span></div>
+
+</div></div>
+<div class="explain-block"><div class="bullet">풀이</div><div class="text-cont"><span class="math"><i>y</i> = 2<i>x</i><sup>2</sup></span>의 그래프를 <span class="math"><i>x</i></span>축에 대하여 대칭이동한 그래프입니다.<br/>꼭짓점은 원점이고, 폭은 기준 그래프와 같습니다.</div></div>
+</div></div>
+</section>
+</div>
+</main>
+</div>
+</div>
+<noscript><p>이 활동을 사용하려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+<script src="js/amt-index.bundle.js"></script>
 </body>
 </html>
