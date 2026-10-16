@@ -1,0 +1,42 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="96px" height="30px" viewBox="0 0 96 30">
+<defs>
+<g id="fdb34343536_1_Layer0_0_FILL">
+<path fill="#FFDE72" stroke="none" d="
+M 112.75 275.65
+L 112.75 279.5 112.75 283.35 112.75 291.65
+Q 112.75 292.25 113.2 292.7 113.7 293.1 114.3 293.1
+L 195.8 293.1
+Q 197.55 293.1 198.95 290.75
+L 204.4 281.05
+Q 205.15 279.3 204.4 277.95
+L 198.95 268.25
+Q 197.55 265.9 195.8 265.9
+L 114.3 265.9
+Q 113.7 265.9 113.2 266.3 112.75 266.75 112.75 267.35
+L 112.75 275.65 Z"/>
+</g>
+
+<path id="fdb34343536_1_Layer0_0_1_STROKES" stroke="#FFB74A" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="3" fill="none" d="
+M 112.75 275.65
+L 112.75 267.35
+Q 112.75 266.75 113.2 266.3 113.7 265.9 114.3 265.9
+L 195.8 265.9
+Q 197.55 265.9 198.95 268.25
+L 204.4 277.95
+Q 205.15 279.3 204.4 281.05
+L 198.95 290.75
+Q 197.55 293.1 195.8 293.1
+L 114.3 293.1
+Q 113.7 293.1 113.2 292.7 112.75 292.25 112.75 291.65
+L 112.75 283.35 112.75 279.5 112.75 275.65 Z"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 48,15) ">
+<g transform="matrix( 1, 0, 0, 1, -158.75,-279.5) ">
+<use xlink:href="#fdb34343536_1_Layer0_0_FILL"/>
+
+<use xlink:href="#fdb34343536_1_Layer0_0_1_STROKES"/>
+</g>
+</g>
+</svg>

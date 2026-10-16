@@ -1,0 +1,12 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="180px" height="180px" viewBox="0 0 180 180">
+<defs>
+<path id="Layer0_0_1_STROKES" stroke="#009EFF" stroke-width="18" stroke-opacity="0.7" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="3" fill="none" d="
+M 170.1 90.1
+Q 170.1 123.1 146.65 146.65 123.1 170.1 90.1 170.1 56.9 170.1 33.4 146.65 9.95 123.1 9.95 90.1 9.95 56.9 33.4 33.4 56.9 9.95 90.1 9.95 123.1 9.95 146.65 33.4 170.1 56.9 170.1 90.1 Z"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Layer0_0_1_STROKES"/>
+</g>
+</svg>

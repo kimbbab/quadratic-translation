@@ -1,0 +1,91 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="36px" height="36px" viewBox="0 0 36 36">
+<defs>
+<g id="fn345353637_copy_0_Layer2_0_FILL">
+<path fill="#BFCDD7" stroke="none" d="
+M 569.4 258.55
+L 569.4 242.55
+Q 569.4 230.55 557.4 230.55
+L 541.4 230.55
+Q 529.4 230.55 529.4 242.55
+L 529.4 258.55
+Q 529.4 270.55 541.4 270.55
+L 557.4 270.55
+Q 569.4 270.55 569.4 258.55 Z"/>
+</g>
+
+<g id="dfbd343536_3_Layer0_1_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 1.25 3.3
+Q 1.25 2.8 0.85 2.4 0.5 2.05 0 2.05 -0.5 2.05 -0.9 2.4 -1.25 2.8 -1.25 3.3 -1.25 3.8 -0.9 4.15 -0.5 4.55 0 4.55 0.5 4.55 0.85 4.15 1.25 3.8 1.25 3.3
+M 1.25 -3.3
+Q 1.25 -3.8 0.85 -4.2 0.5 -4.55 0 -4.55 -0.5 -4.55 -0.9 -4.2 -1.25 -3.8 -1.25 -3.3 -1.25 -2.8 -0.9 -2.45 -0.5 -2.05 0 -2.05 0.5 -2.05 0.85 -2.45 1.25 -2.8 1.25 -3.3 Z"/>
+</g>
+
+<path id="dfbd343536_0_Layer0_0_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M -2.8051940917968743 0
+L 2.8172729492187507 0"/>
+
+<path id="dfbd343536_0_Layer0_1_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 0 -2.8051940917968743
+L 0 2.8172729492187507"/>
+
+<path id="dfbd343536_1_Layer0_0_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M -2.8051940917968743 0
+L 2.8172729492187507 0"/>
+
+<path id="dfbd343536_2_Layer0_0_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M -2.0232772827148455 -2.0001647949218793
+L 1.9524078369140643 1.9752990722656243"/>
+
+<path id="dfbd343536_2_Layer0_1_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 2.0001647949218793 -2.0232772827148455
+L -1.9752990722656243 1.9524078369140643"/>
+
+<path id="dfbd343536_3_Layer0_0_1_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M -2.8051940917968743 0
+L 2.8172729492187507 0"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 18,17.95) ">
+<g transform="matrix( 0.899993896484375, 0, 0, 0.899993896484375, -494.45,-225.45) ">
+<use xlink:href="#fn345353637_copy_0_Layer2_0_FILL"/>
+</g>
+
+<g transform="matrix( 1.29595947265625, 0, 0, 1.29595947265625, -6.45,-7.6) ">
+<g transform="matrix( 0.7755126953125, 0, 0, 1, 25.85,5.5) ">
+<use xlink:href="#dfbd343536_0_Layer0_0_1_STROKES" transform="matrix( 1.289459228515625, 0, 0, 1, -33.3,-5.5) "/>
+</g>
+
+<g transform="matrix( 0, 0.7755126953125, -1, 0, -5.5,25.85) ">
+<use xlink:href="#dfbd343536_0_Layer0_1_1_STROKES" transform="matrix( 0, -1, 1.289459228515625, 0, -33.3,-5.5) "/>
+</g>
+</g>
+
+<g transform="matrix( 1.29595947265625, 0, 0, 1.29595947265625, 6.5,-7.6) ">
+<g transform="matrix( 0.7755126953125, 0, 0, 1, 25.85,5.5) ">
+<use xlink:href="#dfbd343536_1_Layer0_0_1_STROKES" transform="matrix( 1.289459228515625, 0, 0, 1, -33.3,-5.5) "/>
+</g>
+</g>
+
+<g transform="matrix( 1.29595947265625, 0, 0, 1.29595947265625, -6.45,5.35) ">
+<g transform="matrix( 0.548370361328125, 0.54833984375, -0.70709228515625, 0.70709228515625, 14.35,22.15) ">
+<use xlink:href="#dfbd343536_2_Layer0_0_1_STROKES" transform="matrix( 0.91180419921875, -0.70709228515625, 0.91180419921875, 0.7071380615234375, -33.25,-5.5) "/>
+</g>
+
+<g transform="matrix( -0.54833984375, 0.548370361328125, -0.70709228515625, -0.70709228515625, -22.15,14.35) ">
+<use xlink:href="#dfbd343536_2_Layer0_1_1_STROKES" transform="matrix( -0.91180419921875, -0.7071380615234375, 0.91180419921875, -0.70709228515625, -33.25,-5.5) "/>
+</g>
+</g>
+
+<g transform="matrix( 1.29595947265625, 0, 0, 1.29595947265625, 6.5,5.35) ">
+<g transform="matrix( 0.7755126953125, 0, 0, 1, 25.85,5.5) ">
+<use xlink:href="#dfbd343536_3_Layer0_0_1_STROKES" transform="matrix( 1.289459228515625, 0, 0, 1, -33.3,-5.5) "/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#dfbd343536_3_Layer0_1_FILL"/>
+</g>
+</g>
+</g>
+</svg>
