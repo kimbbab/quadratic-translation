@@ -125,8 +125,8 @@
         </div>
         ${mode === 'slider' ? `<div class="slider-wrap vertical"><input id="slider-y-${n}" class="slider slider-y" type="range" min="${question.yMin}" max="${question.yMax}" step="1" value="0" aria-label="${n}번 그래프 위아래 이동" aria-orientation="vertical" aria-describedby="move-status-${n}"></div><div class="slider-wrap horizontal"><input id="slider-x-${n}" class="slider slider-x" type="range" min="-6" max="6" step="1" value="0" aria-label="${n}번 그래프 좌우 이동" aria-describedby="move-status-${n}"></div>` : ''}
       </div>
-      ${mode === 'step' ? `<div class="step-controls" role="group" aria-label="${n}번 그래프 한 칸씩 이동">${Object.entries(DIRECTIONS).map(([direction, movement]) => `<button type="button" class="step-button" data-direction="${direction}" aria-label="${n}번 그래프 ${movement.phrase} 한 칸" aria-describedby="move-status-${n}"><span aria-hidden="true">${movement.arrow}</span> ${movement.label}</button>`).join('')}</div>` : ''}
-      <p class="move-status" id="move-status-${n}" role="status" aria-live="polite" aria-atomic="true"></p>
+      ${mode === 'step' ? `<div class="step-controls" role="group" aria-label="${n}번 그래프 한 칸씩 이동">${Object.entries(DIRECTIONS).map(([direction, movement]) => `<button type="button" class="step-button" data-direction="${direction}" aria-label="${n}번 그래프 ${movement.phrase} 한 칸"><span aria-hidden="true">${movement.arrow}</span></button>`).join('')}</div>` : ''}
+      ${mode === 'slider' ? `<p class="move-status" id="move-status-${n}" role="status" aria-live="polite" aria-atomic="true"></p>` : ''}
       <div class="answers" aria-label="${n}번 답 입력">
         <div class="answer-row"><label class="answer-label" for="${answerIds[0]}">축의 방정식</label><span class="math"><i>x</i> =</span><span class="input-box js-input-box"><input id="${answerIds[0]}" class="g-input js-input axis-answer" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="48" aria-label="${n}번 축의 방정식 x 값"></span></div>
         <div class="answer-row"><span class="answer-label">꼭짓점의 좌표</span><span class="coordinate">(<span class="input-box js-input-box"><input id="${answerIds[1]}" class="g-input js-input vertex-x-answer" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="48" aria-label="${n}번 꼭짓점 x좌표"></span>,<span class="input-box js-input-box"><input id="${answerIds[2]}" class="g-input js-input vertex-y-answer" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="48" aria-label="${n}번 꼭짓점 y좌표"></span>)</span></div>
@@ -160,6 +160,7 @@
     const moveStatus = find('.move-status');
 
     function showMovement(text, error = false) {
+      if (!moveStatus) return;
       moveStatus.textContent = text;
       moveStatus.classList.toggle('move-error', error);
     }
@@ -186,8 +187,8 @@
       movementControls.forEach(control => control.addEventListener('click', () => {
         if (locked) return;
         const next = executeStep(question, state, control.dataset.direction);
-        if (!next.ok) { showMovement('이 방향으로는 더 옮길 수 없습니다.', true); return; }
-        state.h = next.h; state.k = next.k; draw(); showMovement(`${DIRECTIONS[next.direction].phrase} 한 칸 옮겼습니다.`);
+        if (!next.ok) return;
+        state.h = next.h; state.k = next.k; draw();
       }));
     }
     function setLocked(value) {
@@ -219,7 +220,7 @@
       });
       find('.problem-result').textContent = ''; delete section.dataset.result;
       setLocked(false); draw();
-      showMovement(mode === 'slider' ? '슬라이더로 파란 그래프를 옮기세요.' : '버튼을 누르면 한 칸씩 옮겨집니다.');
+      if (mode === 'slider') showMovement('슬라이더로 파란 그래프를 옮기세요.');
     }
     reset();
     return { mark, reset, firstControl: mode === 'slider' ? find('.slider-x') : movementControls[0] };
