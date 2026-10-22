@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>사분원 · 각도와 선분의 길이</title>
+  <link rel="stylesheet" href="../common-assets/amanta/da_mi_math2/public/common/css/amt-content.css">
+  <link rel="stylesheet" href="css/amt-index.bundle.css">
+  <link rel="stylesheet" href="css/amt-index.css?v=7ceb224c7851">
+</head>
+<body>
+  <div id="amt-viewer-wraper" class="html-type quarter-circle-page">
+    <main id="content" class="corner_think_wide color-type-2" aria-label="사분원 · 각도와 선분의 길이">
+      <div id="quiz-main-01">
+        <!-- 본문 메인 스크롤 영역 -->
+        <div class="main-scroll scroll-cont js-scroll-cont">
+          <div class="scroll-inner" style="height: auto">
+            <div class="title-main">
+              <div class="bullet"><div class="text">생각 넓히기</div><div class="icons"><div class="icon bc-purple">정보처리</div></div></div>
+              <div class="text-cont"><h1 class="text-1">사분원 · 각도와 선분의 길이</h1></div>
+            </div>
+            <!-- 본문 콘텐츠 영역 -->
+            <div class="content-area"><div class="content-box" style="height: auto"><div class="diagram-grid">
+    <figure class="diagram-panel">
+    <svg id="sine-cosine" class="diagram" viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" aria-labelledby="left-title left-desc">
+      <title id="left-title">BC와 OC의 길이 변화</title>
+      <desc id="left-desc">B점을 마우스나 손가락으로 원호 위에서 움직이세요. 분홍색은 BC, 초록색은 OC입니다. B점에 초점을 맞추고 방향키로도 움직일 수 있습니다.</desc>
+      <defs>
+        <marker id="left-axis-arrow" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="11" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 0 0 L 12 5 L 0 10 L 3 5 Z" fill="#303030"/></marker>
+      </defs>
+      <path class="axis" d="M 72 48 V 452 H 474" marker-start="url(#left-axis-arrow)" marker-end="url(#left-axis-arrow)"/>
+      <path class="arc" d="M 72 102 A 350 350 0 0 1 422 452"/>
+      <line data-part="ray" class="ray"/>
+      <path data-part="square" class="right-angle"/>
+      <line data-part="oc" class="green"/>
+      <line data-part="bc" class="pink"/>
+      <path data-part="angle" class="angle-arc"/>
+      <text data-part="alpha" class="math">α<tspan data-part="angle-value" class="actual-angle" dx="7">= 45.0°</tspan></text>
+      <text x="48" y="493" text-anchor="end">O</text>
+      <text x="437" y="437">A</text>
+      <text data-part="c-label" text-anchor="middle">C</text>
+      <text data-part="b-label">B</text>
+      <text x="466" y="491" class="math">x</text>
+      <text x="49" y="61" class="math" text-anchor="end">y</text>
+      <text x="422" y="491" class="unit" text-anchor="middle">1</text>
+      <text x="57" y="116" class="unit" text-anchor="end">1</text>
+      <path class="arc-hit drag-target" d="M 72 102 A 350 350 0 0 1 422 452"/>
+      <g data-part="handle" class="handle drag-target" role="slider" tabindex="0" aria-label="왼쪽 그림 B점의 각도" aria-valuemin="0" aria-valuemax="90" aria-valuenow="45" aria-orientation="horizontal">
+        <circle class="handle-hit" r="32"/>
+        <circle class="handle-focus" r="14"/>
+        <circle class="handle-dot" r="7.5"/>
+      </g>
+    </svg>
+    <figcaption class="readouts">
+      <div>
+        <div id="bc-caption" class="readout-label"><span class="swatch swatch-pink" aria-hidden="true"></span><span><span class="segment-name">BC</span>의 길이</span></div>
+        <output data-metric="bc" class="readout-value" aria-labelledby="bc-caption" aria-live="off">0.7071</output>
+      </div>
+      <div>
+        <div id="oc-caption" class="readout-label"><span class="swatch swatch-green" aria-hidden="true"></span><span><span class="segment-name">OC</span>의 길이</span></div>
+        <output data-metric="oc" class="readout-value" aria-labelledby="oc-caption" aria-live="off">0.7071</output>
+      </div>
+    </figcaption>
+    </figure>
+
+    <figure class="diagram-panel">
+    <svg id="tangent" class="diagram" viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" aria-labelledby="right-title right-desc">
+      <title id="right-title">AD의 길이 변화</title>
+      <desc id="right-desc">B점을 원호 위에서 움직이면 파란색 AD의 길이가 바뀝니다. 두 그림의 B점은 각각 독립적으로 움직입니다. D가 그림 밖에 있으면 파란색 위쪽 화살표가 선의 이어짐을 나타냅니다.</desc>
+      <defs>
+        <marker id="right-axis-arrow" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="11" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 0 0 L 12 5 L 0 10 L 3 5 Z" fill="#303030"/></marker>
+        <marker id="blue-continuation" viewBox="0 0 14 12" refX="12" refY="6" markerWidth="14" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse"><path d="M 0 0 L 14 6 L 0 12 L 3 6 Z" fill="#0088b9"/></marker>
+      </defs>
+      <path class="axis" d="M 72 48 V 452 H 474" marker-start="url(#right-axis-arrow)" marker-end="url(#right-axis-arrow)"/>
+      <path class="arc" d="M 72 102 A 350 350 0 0 1 422 452"/>
+      <line data-part="ray" class="ray"/>
+      <path data-part="square" class="right-angle"/>
+      <line data-part="ad" class="blue"/>
+      <path data-part="angle" class="angle-arc"/>
+      <text data-part="alpha" class="math">α<tspan data-part="angle-value" class="actual-angle" dx="7">= 45.0°</tspan></text>
+      <text x="48" y="493" text-anchor="end">O</text>
+      <text x="437" y="437">A</text>
+      <text data-part="b-label">B</text>
+      <text data-part="d-label" text-anchor="middle">D</text>
+      <text x="466" y="491" class="math">x</text>
+      <text x="49" y="61" class="math" text-anchor="end">y</text>
+      <text x="422" y="491" class="unit" text-anchor="middle">1</text>
+      <text x="57" y="116" class="unit" text-anchor="end">1</text>
+      <path class="arc-hit drag-target" d="M 72 102 A 350 350 0 0 1 422 452"/>
+      <g data-part="handle" class="handle drag-target" role="slider" tabindex="0" aria-label="오른쪽 그림 B점의 각도" aria-valuemin="0" aria-valuemax="90" aria-valuenow="45" aria-orientation="horizontal">
+        <circle class="handle-hit" r="32"/>
+        <circle class="handle-focus" r="14"/>
+        <circle class="handle-dot" r="7.5"/>
+      </g>
+    </svg>
+    <figcaption class="readouts readouts--single">
+      <div>
+        <div id="ad-caption" class="readout-label"><span class="swatch swatch-blue" aria-hidden="true"></span><span><span class="segment-name">AD</span>의 길이</span></div>
+        <output data-metric="ad" class="readout-value" aria-labelledby="ad-caption" aria-live="off">1.0000</output>
+      </div>
+    </figcaption>
+    </figure>
+  </div></div></div>
+          </div>
+        </div>
+        <div class="bottom-g-icon btns-bottom"><button class="g-icon restart btn-restart" data-always-show="true" type="button"><span class="text">다시 하기</span></button></div>
+      </div>
+    </main>
+  </div>
+  <div id="angle-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <noscript>이 활동을 사용하려면 브라우저에서 JavaScript를 켜 주세요.</noscript>
+  <script src="js/amt-index.bundle.js?v=04ea725621e7"></script>
+</body>
+</html>
